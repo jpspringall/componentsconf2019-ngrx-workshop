@@ -1,4 +1,4 @@
-import { createReducer, on, Action, createSelector } from "@ngrx/store";
+import { createReducer, on, createSelector, Action } from "@ngrx/store";
 import {
   BookModel,
   calculateBooksGrossEarnings
@@ -63,6 +63,10 @@ export const booksReducer = createReducer(
   })
 );
 
+export function reducer(state: State | undefined, action: Action) {
+  return booksReducer(state, action);
+}
+
 export const selectAll = (state: State) => state.collection;
 export const selectActiveBookId = (state: State) => state.activeBookId;
 export const selectActiveBook = createSelector(
@@ -74,6 +78,3 @@ export const selectEarningsTotals = createSelector(
   selectAll,
   calculateBooksGrossEarnings
 );
-export function reducer(state: State | undefined, action: Action) {
-  return booksReducer(state, action);
-}
